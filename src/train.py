@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchvision import models
-from sklearn.metrics import confusion_matrix, precision_score, recall_score
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
 
 from dataset import ImageClassificationDataset
 
@@ -72,11 +72,13 @@ for epoch in range(10):
 	cm = confusion_matrix(all_labels, all_predictions)
 	precision = precision_score(all_labels, all_predictions, zero_division=0)
 	recall = recall_score(all_labels, all_predictions, zero_division=0)
+	f1 = f1_score(all_labels, all_predictions, zero_division=0)
 
 	print("Confusion Matrix:")
 	print(cm)
 	print(f"Precision: {precision:.4f}")
 	print(f"Recall: {recall:.4f}")
+	print(f"F1-Score: {f1:.4f}")
 
 	if accuracy > best_accuracy:
 		best_accuracy = accuracy
