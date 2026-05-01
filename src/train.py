@@ -16,9 +16,7 @@ test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
 model.fc = nn.Linear(model.fc.in_features, 1)
 
-for parameter in model.parameters():
-	parameter.requires_grad = False
-
+# Keep earlier layers frozen, unfreeze only the last layers
 for parameter in model.layer3.parameters():
 	parameter.requires_grad = True
 
