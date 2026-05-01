@@ -27,7 +27,7 @@ class ImageClassificationDataset(Dataset):
 			return transforms.Compose([
 				transforms.Resize((128, 128)),
 				transforms.RandomHorizontalFlip(),
-				transforms.RandomRotation(10),
+				transforms.RandomRotation(15),
 				transforms.ToTensor(),
 			])
 
