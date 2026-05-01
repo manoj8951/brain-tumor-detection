@@ -24,3 +24,12 @@ Brain MRI images (manually split into train and test)
 ## Note
 
 This model is for educational purposes only and not for medical use.
+
+## 🚀 Improvements Added
+
+* Data augmentation for better generalization
+* Threshold tuning to improve recall (reduce missed tumors)
+* F1-score for balanced evaluation
+* Fine-tuning of ResNet18 (unfreezing last layers)
+* Grad-CAM visualization for model interpretability
+
