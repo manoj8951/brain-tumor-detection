@@ -60,7 +60,7 @@ for epoch in range(10):
 	with torch.no_grad():
 		for images, labels in test_loader:
 			outputs = model(images)
-			predictions = (torch.sigmoid(outputs) >= 0.5).float().squeeze(1)
+			predictions = (torch.sigmoid(outputs) >= 0.4).float().squeeze(1)
 			correct += (predictions == labels.float()).sum().item()
 			total += labels.size(0)
 			all_labels.extend(labels.tolist())

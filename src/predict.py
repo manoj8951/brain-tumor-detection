@@ -22,7 +22,7 @@ image_tensor = image_tensor.unsqueeze(0)
 
 with torch.no_grad():
 	output = model(image_tensor)
-	prediction = 1 if output.item() >= 0.5 else 0
+	prediction = 1 if output.item() >= 0.4 else 0
 
 if prediction == 1:
 	print("Tumor")
