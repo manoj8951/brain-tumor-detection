@@ -6,6 +6,8 @@ import torch.nn as nn
 from torchvision import models, transforms
 from PIL import Image
 
+from gradcam import GradCAM, overlay_heatmap
+
 
 st.warning("⚠️ Only upload brain MRI images. Results may be unreliable for other images.")
 st.title("Tumor Classification")
@@ -42,11 +44,19 @@ if uploaded_file is not None:
         output = model(input_tensor)
         prob = torch.sigmoid(output).item()
 
-    label = "Tumor" if prob >= 0.5 else "No Tumor"
+    label = "Tumor" if prob >= 0.4 else "No Tumor"
 
     st.markdown("**Prediction**")
     st.write(f"Result: **{label}**")
     st.write(f"Probability: {prob:.3f}")
+
+    # Generate Grad-CAM
+    gradcam = GradCAM(model, model.layer4[-1])
+    heatmap = gradcam.generate(input_tensor)
+    heatmap_image = overlay_heatmap(image, heatmap)
+
+    st.markdown("**Grad-CAM Visualization**")
+    st.image(heatmap_image, caption="Model Focus Area (Red = High Attention)", width="stretch")
 
     if not os.path.exists(model_path):
         st.warning(f"Model file '{model_path}' not found. Place the trained model in the project root.")
